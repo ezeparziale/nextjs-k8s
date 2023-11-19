@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config
+data:
+  REDIS_URL: "redis://redis-service.default.svc.cluster.local:6379"
+  SERVER_STARTED: "True"
