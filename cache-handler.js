@@ -1,5 +1,5 @@
 const { IncrementalCache } = require("@neshca/cache-handler");
-const { createHandler } = require("@neshca/cache-handler/redis-stack");
+const { createHandler } = require("@neshca/cache-handler/redis-string");
 const { createClient } = require("redis");
 
 function createRedisClient(url) {
