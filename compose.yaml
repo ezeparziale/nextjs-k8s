@@ -1,5 +1,5 @@
 services:
-  redis-stack:
+  redis:
     image: redis/redis-stack:latest
     container_name: redis
     hostname: redis
@@ -10,7 +10,8 @@ services:
       - nextjs_net
 
   web:
-    image: nextjs-docker
+    build: .
+    # image: nextjs-docker
     container_name: nextjs-web
     hostname: nextjs-web
     ports:
@@ -18,9 +19,11 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - SERVER_STARTED=True
+    depends_on:
+      - redis
     networks:
       - nextjs_net
 
 networks:
   nextjs_net:
-      name: nextjs_net
+    name: nextjs_net
