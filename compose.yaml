@@ -18,7 +18,7 @@ services:
       - 3000:3000
     environment:
       - REDIS_URL=redis://redis:6379
-      - SERVER_STARTED=True
+      - REDIS_AVAILABLE=True
     depends_on:
       - redis
     networks:
