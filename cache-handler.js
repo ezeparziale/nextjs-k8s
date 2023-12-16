@@ -1,41 +1,40 @@
 const { IncrementalCache } = require("@neshca/cache-handler");
-const { createHandler } = require("@neshca/cache-handler/redis-stack");
+const createRedisCache = require("@neshca/cache-handler/redis-stack").default;
+const createLruCache = require("@neshca/cache-handler/local-lru").default;
 const { createClient } = require("redis");
 
-function createRedisClient(url) {
-  const client = createClient({
-    url,
-  });
-
-  client.on("error", (error) => {
-    console.error("Redis error:", error.message);
-  });
-
-  return client;
-}
-
-async function connect(client) {
-  try {
-    await client.connect();
-  } catch (error) {
-    console.error("Redis connection error:", error.message);
-  }
-}
-
-const client = createRedisClient(
-  process.env.REDIS_URL ?? "redis://localhost:6379"
-);
-
-connect(client).then(() => {
-  console.log("Redis connected");
+const client = createClient({
+  url: process.env.REDIS_URL ?? "redis://localhost:6379",
 });
 
-if (process.env.SERVER_STARTED) {
-  IncrementalCache.onCreation(
-    createHandler({
+client.on("error", (error) => {
+  console.error("Redis error:", error.message);
+});
+
+IncrementalCache.onCreation(async () => {
+  let redisCache, localCache;
+
+  const useTtl = true;
+
+  if (process.env.REDIS_AVAILABLE) {
+    await client.connect();
+
+    redisCache = await createRedisCache({
       client,
-    })
-  );
-}
+      useTtl,
+    });
+
+    localCache = createLruCache({
+      useTtl,
+    });
+  }
+
+  const cache = [redisCache, localCache];
+
+  return {
+    cache,
+    useFileSystem: false,
+  };
+});
 
 module.exports = IncrementalCache;
