@@ -22,12 +22,13 @@ IncrementalCache.onCreation(async () => {
     redisCache = await createRedisCache({
       client,
       useTtl,
-    });
-
-    localCache = createLruCache({
-      useTtl,
+      timeoutMs: 5000,
     });
   }
+
+  localCache = createLruCache({
+    useTtl,
+  });
 
   const cache = [redisCache, localCache];
 
