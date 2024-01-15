@@ -10,6 +10,11 @@ const nextConfig = {
     remotePatterns: [{ hostname: "images.unsplash.com" }],
   },
   output: "standalone",
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 module.exports = nextConfig;
