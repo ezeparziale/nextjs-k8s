@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    incrementalCacheHandlerPath:
-      process.env.NODE_ENV === "production"
-        ? require.resolve("./cache-handler.js")
-        : undefined,
-  },
+  cacheHandler:
+    process.env.NODE_ENV === "production"
+      ? require.resolve("./cache-handler.js")
+      : undefined,
+  cacheMaxMemorySize: 0, // disable default in-memory caching
   images: {
     remotePatterns: [{ hostname: "images.unsplash.com" }],
   },
