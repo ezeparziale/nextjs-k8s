@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@neshca/cache-handler": "0.6.5",
-    "@types/node": "20.11.2",
-    "@types/react": "18.2.48",
+    "@types/node": "20.11.16",
+    "@types/react": "18.2.51",
     "@types/react-dom": "18.2.18",
     "autoprefixer": "10.4.16",
     "eslint": "8.56.0",
