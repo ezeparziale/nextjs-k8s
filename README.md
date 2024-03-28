@@ -35,7 +35,7 @@ Adding `cache-handler.js` and configured `incrementalCacheHandlerPath` property 
 I following this example and the same pages to validate the cache using `revalidateTag`:
 
 ```http
-https://github.com/vercel/next.js/tree/canary/examples/cache-handler-redis
+https://caching-tools.github.io/next-shared-cache/redis
 ```
 
 More info in:
