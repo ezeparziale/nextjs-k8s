@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
-import { CacheStateWatcher } from "../components/cache-state-watcher";
+import { CacheStateWatcher } from "./_components/cache-state-watcher";
 import { Suspense } from "react";
-import { RevalidateFrom } from "../components/revalidate-from";
+import { RevalidateFrom } from "./_components/revalidate-from";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type TimeData = {
   unixtime: number;
@@ -12,7 +13,7 @@ type TimeData = {
 
 const timeZones = ["cet", "gmt"];
 
-export const revalidate = 10;
+export const revalidate = 30;
 
 export async function generateStaticParams() {
   return timeZones.map((timezone) => ({ timezone }));
@@ -42,16 +43,12 @@ export default async function Page({
       <div className="flex flex-col items-center justify-center h-screen space-y-6">
         <header>
           {timeZones.map((timeZone) => (
-            <Link
-              key={timeZone}
-              className="inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 sm:ml-3 sm:w-auto"
-              href={`/${timeZone}`}
-            >
-              {timeZone.toUpperCase()} Time
-            </Link>
+            <Button key={timeZone} className="mx-1" asChild>
+              <Link href={`/${timeZone}`}>{timeZone.toUpperCase()} Time</Link>
+            </Button>
           ))}
         </header>
-        <main className="p-6 border rounded-lg shadow flex flex-col items-center">
+        <main className="p-6 border rounded-md flex flex-col items-center">
           <div className="">
             {timeData.timezone} Time {timeData.datetime}
           </div>

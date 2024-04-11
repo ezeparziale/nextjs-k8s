@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 type CacheStateWatcherProps = { time: number; revalidateAfter: number };
@@ -42,9 +43,10 @@ export function CacheStateWatcher({
   return (
     <>
       <div
-        className={`rounded p-1 font-bold ${
+        className={cn(
+          "rounded-md p-1 font-bold",
           cacheState == "fresh" ? "text-green-500" : "text-red-500"
-        }`}
+        )}
       >
         Cache state: {cacheState}
       </div>
