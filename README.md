@@ -32,7 +32,7 @@ https://caching-tools.github.io/next-shared-cache/redis-stack
 
 Adding `cache-handler.js` and configured `incrementalCacheHandlerPath` property in `next-config.js`
 
-I following this example and the same pages to validate the cache using `revalidateTag`:
+I following this example and the same pages to validate the cache using `revalidateTag` and `revalidatePath`:
 
 ```http
 https://caching-tools.github.io/next-shared-cache/redis
