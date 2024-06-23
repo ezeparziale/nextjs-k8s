@@ -4,23 +4,48 @@ import createRedisHandler from "@neshca/cache-handler/redis-stack";
 import { createClient } from "redis";
 
 CacheHandler.onCreation(async () => {
-  const client = createClient({
-    url: process.env.REDIS_URL ?? "redis://localhost:6379",
-  });
+  let client;
 
-  client.on("error", (error) => {
-    console.error("Redis error:", error.message);
-  });
+  try {
+    client = createClient({
+      url: process.env.REDIS_URL ?? "redis://localhost:6379",
+    });
+
+    client.on("error", (error) => {
+      console.error("Redis error:", error.message);
+    });
+  } catch (error) {
+    console.warn("Failed to create Redis client:", error);
+  }
 
   let redisHandler;
 
   if (process.env.REDIS_AVAILABLE) {
-    await client.connect();
+    try {
+      console.info("Connecting Redis client...");
 
-    redisHandler = await createRedisHandler({
-      client,
-      timeoutMs: 5000,
-    });
+      await client.connect();
+
+      console.info("Redis client connected.");
+
+      redisHandler = await createRedisHandler({
+        client,
+        timeoutMs: 5000,
+      });
+    } catch (error) {
+      console.warn("Failed to connect Redis client:", error);
+      console.warn("Disconnecting the Redis client...");
+      client
+        .disconnect()
+        .then(() => {
+          console.info("Redis client disconnected.");
+        })
+        .catch(() => {
+          console.warn(
+            "Failed to quit the Redis client after failing to connect."
+          );
+        });
+    }
   }
 
   const localHandler = createLruHandler();
