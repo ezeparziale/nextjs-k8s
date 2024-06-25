@@ -8,7 +8,7 @@ Next.js web application with 2 pods sharing cache on redis
 
 I created the docker image following the example in: 
 
-```html
+```http
 https://github.com/vercel/next.js/tree/canary/examples/with-docker
 ```
 
@@ -16,7 +16,7 @@ I configured `output: "standalone"` property in `next-config.js`
 
 More info in:
 
-```html
+```http
 https://nextjs.org/docs/app/building-your-application/deploying#docker-image
 ```
 
@@ -26,11 +26,11 @@ I use `Redis` to cached values and ensure consitency across all pods.
 
 I installed `@neshca/cache-handler` using `npm i -D @neshca/cache-handler`:
 
-```html
+```http
 https://caching-tools.github.io/next-shared-cache/redis-stack
 ```
 
-Adding `cache-handler.js` and configured `incrementalCacheHandlerPath` property in `next-config.js`
+Adding `cache-handler.mjs` and configured `cacheHandler` property in `next.config.mjs`
 
 I following this example and the same pages to validate the cache using `revalidateTag` and `revalidatePath`:
 
@@ -40,7 +40,7 @@ https://caching-tools.github.io/next-shared-cache/redis
 
 More info in:
 
-```html
+```http
 https://nextjs.org/docs/app/building-your-application/deploying#caching-and-isr
 ```
 
@@ -50,7 +50,7 @@ I installed `sharp` using `npm install sharp`
 
 More info in:
 
-```html
+```http
 https://nextjs.org/docs/app/building-your-application/deploying#image-optimization
 ```
 
