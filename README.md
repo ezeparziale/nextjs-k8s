@@ -27,7 +27,7 @@ I use `Redis` to cached values and ensure consistency across all pods.
 I installed `@neshca/cache-handler` using `npm i -D @neshca/cache-handler`:
 
 ```http
-https://caching-tools.github.io/next-shared-cache/redis-stack
+https://caching-tools.github.io/next-shared-cache
 ```
 
 Adding `cache-handler.mjs` and configured `cacheHandler` property in `next.config.mjs`
@@ -35,7 +35,7 @@ Adding `cache-handler.mjs` and configured `cacheHandler` property in `next.confi
 I following this example and the same pages to validate the cache using `revalidateTag` and `revalidatePath`:
 
 ```http
-https://caching-tools.github.io/next-shared-cache/redis
+https://github.com/vercel/next.js/tree/canary/examples/cache-handler-redis
 ```
 
 More info in:
