@@ -22,7 +22,7 @@ https://nextjs.org/docs/app/building-your-application/deploying#docker-image
 
 ### :card_file_box: Cache
 
-I use `Redis` to cached values and ensure consitency across all pods.
+I use `Redis` to cached values and ensure consistency across all pods.
 
 I installed `@neshca/cache-handler` using `npm i -D @neshca/cache-handler`:
 
