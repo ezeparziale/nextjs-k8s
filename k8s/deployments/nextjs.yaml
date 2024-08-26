@@ -13,10 +13,10 @@ spec:
         app: nextjs
     spec:
       containers:
-      - name: nextjs
-        image: nextjs-docker
-        ports:
-        - containerPort: 3000
-        envFrom:
-        - configMapRef:
-            name: myapp-config
+        - name: nextjs
+          image: nextjs-docker
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: myapp-config
