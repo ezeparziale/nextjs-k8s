@@ -6,7 +6,7 @@ Next.js web application with 2 pods sharing cache on redis
 
 ### :whale: Docker
 
-I created the docker image following the example in: 
+I created the docker image following the example in:
 
 ```http
 https://github.com/vercel/next.js/tree/canary/examples/with-docker
@@ -32,7 +32,8 @@ https://caching-tools.github.io/next-shared-cache
 
 Adding `cache-handler.mjs` and configured `cacheHandler` property in `next.config.mjs`
 
-I following this example and the same pages to validate the cache using `revalidateTag` and `revalidatePath`:
+I following this example and the same pages to validate the cache using `revalidateTag`
+and `revalidatePath`:
 
 ```http
 https://github.com/vercel/next.js/tree/canary/examples/cache-handler-redis
@@ -56,8 +57,8 @@ https://nextjs.org/docs/app/building-your-application/deploying#image-optimizati
 
 ### :whale2: Kubernetes
 
-In the `k8s` folder, there are all the `Kubernetes` manifests to create two pods with the Next.js web application and one pod with a Redis server.
-
+In the `k8s` folder, there are all the `Kubernetes` manifests to create two pods with
+the Next.js web application and one pod with a Redis server.
 
 ## :runner: Run
 
@@ -67,7 +68,8 @@ Run dev mode with `npm run dev`
 
 ### :2nd_place_medal: Option 2
 
-Run in `Docker` using Docker compose with `docker compose -f "compose.yaml" up -d --build`
+Run in `Docker` using Docker compose with
+`docker compose -f "compose.yaml" up -d --build`
 
 ### :3rd_place_medal: Option 3
 
