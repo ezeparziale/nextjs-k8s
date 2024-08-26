@@ -1,18 +1,17 @@
-import Link from "next/link";
-import ButtonRevalidate from "./_components/button-revalidate";
-import { getCurrentTimestampCET } from "../_actions/server-actions";
+import Link from "next/link"
+import ButtonRevalidate from "./_components/button-revalidate"
+import { getCurrentTimestampCET } from "../_actions/server-actions"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/table"
 
 export default async function DataPage() {
-  const data = await getCurrentTimestampCET();
+  const data = await getCurrentTimestampCET()
 
   return (
     <div className="container mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">
@@ -43,5 +42,5 @@ export default async function DataPage() {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }
