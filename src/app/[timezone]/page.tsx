@@ -1,42 +1,35 @@
-import { notFound } from "next/navigation";
-import { CacheStateWatcher } from "./_components/cache-state-watcher";
-import { Suspense } from "react";
-import { RevalidateFrom } from "./_components/revalidate-from";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { notFound } from "next/navigation"
+import { CacheStateWatcher } from "./_components/cache-state-watcher"
+import { Suspense } from "react"
+import { RevalidateFrom } from "./_components/revalidate-from"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 type TimeData = {
-  unixtime: number;
-  datetime: string;
-  timezone: string;
-};
-
-const timeZones = ["cet", "gmt"];
-
-export const revalidate = 30;
-
-export async function generateStaticParams() {
-  return timeZones.map((timezone) => ({ timezone }));
+  unixtime: number
+  datetime: string
+  timezone: string
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { timezone: string };
-}) {
-  const { timezone } = params;
-  const data = await fetch(
-    `https://worldtimeapi.org/api/timezone/${timezone}`,
-    {
-      next: { tags: ["time-data"] },
-    }
-  );
+const timeZones = ["cet", "gmt"]
+
+export const revalidate = 30
+
+export async function generateStaticParams() {
+  return timeZones.map((timezone) => ({ timezone }))
+}
+
+export default async function Page({ params }: { params: { timezone: string } }) {
+  const { timezone } = params
+  const data = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`, {
+    next: { tags: ["time-data"] },
+  })
 
   if (!data.ok) {
-    notFound();
+    notFound()
   }
 
-  const timeData: TimeData = await data.json();
+  const timeData: TimeData = await data.json()
 
   return (
     <>
@@ -62,5 +55,5 @@ export default async function Page({
         </main>
       </div>
     </>
-  );
+  )
 }
