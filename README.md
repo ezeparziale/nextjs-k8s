@@ -88,3 +88,6 @@ Run in `Kubernetes`:
 6. Execute `kubectl apply -f k8s\services\redis.yaml`
 
 7. Access to `http://localhost:3000`
+
+> [!NOTE]  
+>  You can use this option to deploy your Docker image on your VPS.
