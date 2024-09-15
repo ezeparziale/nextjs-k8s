@@ -12,7 +12,7 @@ I created the docker image following the example in:
 https://github.com/vercel/next.js/tree/canary/examples/with-docker
 ```
 
-I configured `output: "standalone"` property in `next-config.js`
+I configured `output: "standalone"` property in `next-config.mjs`
 
 More info in:
 
