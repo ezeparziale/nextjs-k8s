@@ -19,7 +19,7 @@ export default async function DataPage() {
       <Link href={"/data"}>Data</Link>
       <div className="flex justify-between items-center">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-          Revalite page and layout
+          Revalidate page and layout
         </h2>
         <ButtonRevalidate />
         <ButtonRevalidateAll />

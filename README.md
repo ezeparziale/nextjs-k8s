@@ -12,7 +12,7 @@ I created the docker image following the example in:
 https://github.com/vercel/next.js/tree/canary/examples/with-docker
 ```
 
-I configured `output: "standalone"` property in `next-config.js`
+I configured `output: "standalone"` property in `next-config.mjs`
 
 More info in:
 
@@ -88,3 +88,6 @@ Run in `Kubernetes`:
 6. Execute `kubectl apply -f k8s\services\redis.yaml`
 
 7. Access to `http://localhost:3000`
+
+> [!NOTE]  
+>  You can use this option to deploy your Docker image on your VPS.
