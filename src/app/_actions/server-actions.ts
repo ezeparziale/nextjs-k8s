@@ -1,5 +1,7 @@
 "use server"
 
+import { Product } from "@/types/product"
+import { DateTimeInfo } from "@/types/time"
 import { revalidatePath, revalidateTag } from "next/cache"
 
 export async function revalidate() {
@@ -33,7 +35,10 @@ export async function getProductsWithLimit() {
       tags: ["products"],
     },
   })
-  return res.json()
+
+  const data: Product[] = await res.json()
+
+  return data
 }
 
 export async function getCurrentTimestampCET() {
@@ -45,7 +50,10 @@ export async function getCurrentTimestampCET() {
       tags: ["getCurrentTimestampCET"],
     },
   })
-  return res.json()
+
+  const data: DateTimeInfo = await res.json()
+
+  return data
 }
 
 export async function getCurrentTimestampGMT() {
@@ -57,5 +65,8 @@ export async function getCurrentTimestampGMT() {
       tags: ["getCurrentTimestampGMT"],
     },
   })
-  return res.json()
+
+  const data: DateTimeInfo = await res.json()
+
+  return data
 }
