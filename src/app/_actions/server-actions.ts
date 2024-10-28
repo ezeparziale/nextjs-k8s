@@ -1,6 +1,7 @@
 "use server"
 
 import { Product } from "@/types/product"
+import { DateTimeInfo } from "@/types/time"
 import { revalidatePath, revalidateTag } from "next/cache"
 
 export async function revalidate() {
@@ -33,6 +34,7 @@ export async function getProductsWithLimit(): Promise<Product[]> {
     next: {
       tags: ["products"],
     },
+    cache: "force-cache",
   })
 
   if (!res.ok) {
@@ -40,29 +42,36 @@ export async function getProductsWithLimit(): Promise<Product[]> {
   }
 
   const data: Product[] = await res.json()
+
   return data
 }
 
 export async function getCurrentTimestampCET() {
   console.log("Downloading data..")
 
-  const res = await fetch(`https://worldtimeapi.org/api/timezone/cet`, {
-    method: "GET",
+  const res = await fetch("https://worldtimeapi.org/api/timezone/cet", {
     next: {
       tags: ["getCurrentTimestampCET"],
     },
+    cache: "force-cache",
   })
-  return res.json()
+
+  const data: DateTimeInfo = await res.json()
+
+  return data
 }
 
 export async function getCurrentTimestampGMT() {
   console.log("Downloading data..")
 
-  const res = await fetch(`https://worldtimeapi.org/api/timezone/gmt`, {
-    method: "GET",
+  const res = await fetch("https://worldtimeapi.org/api/timezone/gmt", {
     next: {
       tags: ["getCurrentTimestampGMT"],
     },
+    cache: "force-cache",
   })
-  return res.json()
+
+  const data: DateTimeInfo = await res.json()
+
+  return data
 }
