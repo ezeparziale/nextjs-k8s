@@ -1,5 +1,6 @@
 "use server"
 
+import { Product } from "@/types/product"
 import { revalidatePath, revalidateTag } from "next/cache"
 
 export async function revalidate() {
@@ -22,7 +23,7 @@ export async function revalidateAll() {
   revalidatePath("/", "layout")
 }
 
-export async function getProductsWithLimit() {
+export async function getProductsWithLimit(): Promise<Product[]> {
   console.log("Downloading data..")
 
   const limit = Math.floor(Math.random() * 20) + 1
@@ -33,7 +34,13 @@ export async function getProductsWithLimit() {
       tags: ["products"],
     },
   })
-  return res.json()
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch products")
+  }
+
+  const data: Product[] = await res.json()
+  return data
 }
 
 export async function getCurrentTimestampCET() {

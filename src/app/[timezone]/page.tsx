@@ -19,8 +19,10 @@ export async function generateStaticParams() {
   return timeZones.map((timezone) => ({ timezone }))
 }
 
-export default async function Page({ params }: { params: { timezone: string } }) {
-  const { timezone } = params
+type Params = Promise<{ timezone: string }>
+
+export default async function Page(props: { params: Params }) {
+  const { timezone } = await props.params
   const data = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`, {
     next: { tags: ["time-data"] },
   })
