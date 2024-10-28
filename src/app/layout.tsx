@@ -5,7 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Nextj + Redis cache + Kubernetes",
+  title: "Nextjs + Redis cache + Kubernetes",
   description: "NextJS app with 2 pods sharing cache on redis",
 }
 
