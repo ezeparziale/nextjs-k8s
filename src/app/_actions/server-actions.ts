@@ -30,10 +30,10 @@ export async function getProductsWithLimit() {
   const limit = Math.floor(Math.random() * 20) + 1
 
   const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`, {
-    method: "GET",
     next: {
       tags: ["products"],
     },
+    cache: "force-cache",
   })
 
   const data: Product[] = await res.json()
@@ -44,11 +44,11 @@ export async function getProductsWithLimit() {
 export async function getCurrentTimestampCET() {
   console.log("Downloading data..")
 
-  const res = await fetch(`https://worldtimeapi.org/api/timezone/cet`, {
-    method: "GET",
+  const res = await fetch("https://worldtimeapi.org/api/timezone/cet", {
     next: {
       tags: ["getCurrentTimestampCET"],
     },
+    cache: "force-cache",
   })
 
   const data: DateTimeInfo = await res.json()
@@ -59,11 +59,11 @@ export async function getCurrentTimestampCET() {
 export async function getCurrentTimestampGMT() {
   console.log("Downloading data..")
 
-  const res = await fetch(`https://worldtimeapi.org/api/timezone/gmt`, {
-    method: "GET",
+  const res = await fetch("https://worldtimeapi.org/api/timezone/gmt", {
     next: {
       tags: ["getCurrentTimestampGMT"],
     },
+    cache: "force-cache",
   })
 
   const data: DateTimeInfo = await res.json()
