@@ -1,4 +1,4 @@
-import { getCurrentTimestampGMT } from "../_actions/server-actions"
+import { getCurrentTimestampGMT } from "@/lib/data"
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const data = await getCurrentTimestampGMT()

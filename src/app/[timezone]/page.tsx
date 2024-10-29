@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { DateTimeInfo } from "@/types/time"
 
-const timeZones = ["cet", "gmt"]
+const timeZones = ["CET", "GMT"]
 
 export const revalidate = 30
 

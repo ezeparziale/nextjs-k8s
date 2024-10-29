@@ -1,6 +1,5 @@
 import Link from "next/link"
 import ButtonRevalidate from "./_components/button-revalidate"
-import { getCurrentTimestampCET } from "../_actions/server-actions"
 import {
   Table,
   TableBody,
@@ -9,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { getCurrentTimestampCET } from "@/lib/data"
 
 export default async function DataPage() {
   const data = await getCurrentTimestampCET()

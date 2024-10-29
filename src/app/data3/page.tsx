@@ -1,6 +1,6 @@
 import Link from "next/link"
 import ButtonRevalidate from "./_components/button-revalidate"
-import { getCurrentTimestampCET } from "../_actions/server-actions"
+import { getCurrentTimestampCET } from "@/lib/data"
 import {
   Table,
   TableBody,
