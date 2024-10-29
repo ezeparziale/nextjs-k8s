@@ -1,4 +1,4 @@
-# :zap: Next.js 14 + Redis cache + Kubernetes
+# :zap: Next.js 15 + Redis cache + Kubernetes
 
 Next.js web application with 2 pods sharing cache on redis
 
