@@ -32,7 +32,7 @@ export default async function DataPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((item: any) => (
+          {data.map((item) => (
             <TableRow key={item.id}>
               <TableCell className="font-medium">{item.title}</TableCell>
             </TableRow>
