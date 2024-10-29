@@ -4,12 +4,7 @@ import { Suspense } from "react"
 import { RevalidateFrom } from "./_components/revalidate-from"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-type TimeData = {
-  unixtime: number
-  datetime: string
-  timezone: string
-}
+import { DateTimeInfo } from "@/types/time"
 
 const timeZones = ["cet", "gmt"]
 
@@ -21,15 +16,16 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: { timezone: string } }) {
   const { timezone } = params
-  const data = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`, {
+
+  const res = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`, {
     next: { tags: ["time-data"] },
   })
 
-  if (!data.ok) {
+  if (!res.ok) {
     notFound()
   }
 
-  const timeData: TimeData = await data.json()
+  const data: DateTimeInfo = await res.json()
 
   return (
     <>
@@ -43,12 +39,12 @@ export default async function Page({ params }: { params: { timezone: string } })
         </header>
         <main className="p-6 border rounded-md flex flex-col items-center">
           <div className="">
-            {timeData.timezone} Time {timeData.datetime}
+            {data.timezone} Time {data.datetime}
           </div>
           <Suspense fallback={null}>
             <CacheStateWatcher
               revalidateAfter={revalidate * 1000}
-              time={timeData.unixtime * 1000}
+              time={data.unixtime * 1000}
             />
           </Suspense>
           <RevalidateFrom />
