@@ -14,10 +14,12 @@ export async function generateStaticParams() {
   return timeZones.map((timezone) => ({ timezone }))
 }
 
-type Props = { params: { timezone: string } }
-
-export default async function Page({ params }: Props) {
-  const timezone = (await params).timezone
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ timezone: string }>
+}) {
+  const { timezone } = await params
 
   const res = await fetch(`https://worldtimeapi.org/api/timezone/${timezone}`, {
     next: { tags: ["time-data"] },
