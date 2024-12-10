@@ -45,16 +45,6 @@ More info in:
 https://nextjs.org/docs/app/building-your-application/deploying#caching-and-isr
 ```
 
-### :camera_flash: Image optimization
-
-I installed `sharp` using `npm install sharp`
-
-More info in:
-
-```http
-https://nextjs.org/docs/app/building-your-application/deploying#image-optimization
-```
-
 ### :whale2: Kubernetes
 
 In the `k8s` folder, there are all the `Kubernetes` manifests to create two pods with
