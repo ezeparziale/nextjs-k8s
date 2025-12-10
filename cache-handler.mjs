@@ -1,5 +1,5 @@
-import { createClient } from 'redis'
-import { LRUCache } from 'lru-cache'
+import { createClient } from "redis"
+import { LRUCache } from "lru-cache"
 
 export default class CacheHandler {
   constructor(options) {
@@ -10,7 +10,7 @@ export default class CacheHandler {
 
     // Initialize in-memory LRU cache if enabled
     // 50MB max size, based on length of values
-    if (process.env.CACHE_USE_LRU_FALLBACK === 'true') {
+    if (process.env.CACHE_USE_LRU_FALLBACK === "true") {
       this.localCache = new LRUCache({
         max: 50000000,
         length: (value, key) => {
@@ -21,7 +21,7 @@ export default class CacheHandler {
       this.localCache = null
     }
 
-    if (process.env.CACHE_AVAILABLE === 'true' && process.env.CACHE_URL) {
+    if (process.env.CACHE_AVAILABLE === "true" && process.env.CACHE_URL) {
       this.connectionPromise = this.connectCache()
     }
   }
@@ -34,28 +34,28 @@ export default class CacheHandler {
           connectTimeout: 5000,
           reconnectStrategy: (retries) => {
             if (retries > 3) {
-              console.error('Max Cache reconnection attempts reached')
+              console.error("Max Cache reconnection attempts reached")
               this.useCache = false
-              return new Error('Max retries reached')
+              return new Error("Max retries reached")
             }
             return Math.min(retries * 100, 3000)
-          }
-        }
+          },
+        },
       })
 
-      this.cacheClient.on('error', (err) => {
-        console.error('Cache Client Error', err)
+      this.cacheClient.on("error", (err) => {
+        console.error("Cache Client Error", err)
         this.useCache = false
       })
 
-      this.cacheClient.on('ready', () => {
-        console.log('Cache Client Connected')
+      this.cacheClient.on("ready", () => {
+        console.log("Cache Client Connected")
         this.useCache = true
       })
 
       await this.cacheClient.connect()
     } catch (error) {
-      console.error('Failed to connect to Cache:', error)
+      console.error("Failed to connect to Cache:", error)
       this.useCache = false
     }
   }
@@ -73,7 +73,7 @@ export default class CacheHandler {
         }
         return null
       } catch (error) {
-        console.error('Cache get error, falling back to local cache:', error)
+        console.error("Cache get error, falling back to local cache:", error)
         await this.cacheClient.del(key)
         return null
       }
@@ -114,7 +114,7 @@ export default class CacheHandler {
           }
         }
       } catch (error) {
-        console.error('Cache set error:', error)
+        console.error("Cache set error:", error)
       }
     }
   }
@@ -136,7 +136,7 @@ export default class CacheHandler {
           }
         }
       } catch (error) {
-        console.error('Cache revalidateTag error:', error)
+        console.error("Cache revalidateTag error:", error)
       }
     }
 
@@ -151,5 +151,5 @@ export default class CacheHandler {
 
   // If you want to have temporary in memory cache for a single request that is reset
   // before the next request you can leverage this method
-  resetRequestCache() { }
+  resetRequestCache() {}
 }
