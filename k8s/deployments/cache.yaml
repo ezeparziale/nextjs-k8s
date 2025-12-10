@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: cache-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: cache
   template:
     metadata:
       labels:
-        app: redis
+        app: cache
     spec:
       containers:
-        - name: redis
-          image: redis/redis-stack:latest
+        - name: redicaches
+          image: valkey/valkey:latest
           ports:
             - containerPort: 6379

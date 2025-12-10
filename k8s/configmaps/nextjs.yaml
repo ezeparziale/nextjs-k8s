@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: myapp-config
 data:
-  REDIS_URL: "redis://redis-service.default.svc.cluster.local:6379"
-  REDIS_AVAILABLE: "True"
+  CACHE_URL: "redis://cache-service.default.svc.cluster.local:6379"
+  CACHE_AVAILABLE: "true"
