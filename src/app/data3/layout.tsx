@@ -5,7 +5,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
   return (
     <>
-      <div>Layout {data.datetime}</div>
+      <div>Layout {data.timestamp}</div>
       <div>{children}</div>
     </>
   )

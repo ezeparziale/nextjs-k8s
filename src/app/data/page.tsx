@@ -15,7 +15,7 @@ export default async function DataPage() {
   const data = await getProductsWithLimit()
 
   return (
-    <div className="container mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">
+    <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <Link href={"/data"}>Data</Link>
       <div className="flex justify-between items-center">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">

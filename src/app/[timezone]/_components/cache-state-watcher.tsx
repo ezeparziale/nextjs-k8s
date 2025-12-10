@@ -8,7 +8,7 @@ type CacheStateWatcherProps = { time: number; revalidateAfter: number }
 export function CacheStateWatcher({
   time,
   revalidateAfter,
-}: CacheStateWatcherProps): JSX.Element {
+}: CacheStateWatcherProps) {
   const [cacheState, setCacheState] = useState("")
   const [countDown, setCountDown] = useState("")
 
