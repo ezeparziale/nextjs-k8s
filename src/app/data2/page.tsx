@@ -14,7 +14,7 @@ export default async function DataPage() {
   const data = await getCurrentTimestampCET()
 
   return (
-    <div className="container mx-auto max-w-screen-xl px-4 py-6 sm:px-6 lg:px-8">
+    <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <Link href={"/data"}>Data</Link>
       <div className="flex justify-between items-center">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
@@ -26,18 +26,24 @@ export default async function DataPage() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Datetime</TableHead>
-            <TableHead className="w-[100px]">Timezone</TableHead>
-            <TableHead className="w-[100px]">Utc_datetime</TableHead>
-            <TableHead className="w-[100px]">Utc_offset</TableHead>
+            <TableHead>Timestamp</TableHead>
+            <TableHead>Date</TableHead>
+            <TableHead>Time</TableHead>
+            <TableHead>Timezone</TableHead>
+            <TableHead>Abbr</TableHead>
+            <TableHead>Offset</TableHead>
+            <TableHead>ISO8601</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="font-medium">{data.datetime}</TableCell>
-            <TableCell className="font-medium">{data.timezone}</TableCell>
-            <TableCell className="font-medium">{data.utc_datetime}</TableCell>
-            <TableCell className="font-medium">{data.utc_offset}</TableCell>
+            <TableCell className="font-medium">{data.timestamp}</TableCell>
+            <TableCell>{data.date}</TableCell>
+            <TableCell>{data.time}</TableCell>
+            <TableCell>{data.timezone}</TableCell>
+            <TableCell>{data.abbr}</TableCell>
+            <TableCell>{data.offset}</TableCell>
+            <TableCell>{data.iso8601}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

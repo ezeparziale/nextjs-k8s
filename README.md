@@ -1,7 +1,9 @@
-# :zap: Next.js 14 + Redis cache + Kubernetes
+# :zap: Next.js 16 + ValKey/Redis cache + Kubernetes
 
-Next.js web application with 2 pods sharing cache on Redis.
+Next.js web application with 2 pods sharing cache.
 
+> [!NOTE]
+> You can also check the other branches for **Next.js 14** (`main-14`), **Next.js 15** (`main-15`) or **Redis Strings** (`redis-strings`) as there are variants that may also be useful to you.
 ## :speech_balloon: About this repo
 
 ### :whale: Docker
@@ -12,48 +14,41 @@ I created the Docker image following the example in:
 https://github.com/vercel/next.js/tree/canary/examples/with-docker
 ```
 
-I configured the `output: "standalone"` property in `next-config.mjs`.
+I configured the `output: "standalone"` property in `next-config.ts`.
 
 More info at:
 
 ```http
-https://nextjs.org/docs/app/building-your-application/deploying#docker-image
+https://nextjs.org/docs/app/getting-started/deploying#docker
 ```
 
 ### :card_file_box: Cache
 
-I use `Redis` to cache values and ensure consistency across all pods.
+I use `ValKey` to cache values and ensure consistency across all pods.
 
-I installed `@neshca/cache-handler` using `npm i -D @neshca/cache-handler`:
+More info at:
 
 ```http
-https://caching-tools.github.io/next-shared-cache
+https://nextjs.org/docs/app/getting-started/deploying#docker
 ```
 
 I added `cache-handler.mjs` and configured the `cacheHandler` property in
-`next.config.mjs`.
+`next.config.ts`.
 
-I followed this example and the same pages to validate the cache using `revalidateTag`
-and `revalidatePath`:
-
-```http
-https://github.com/vercel/next.js/tree/canary/examples/cache-handler-redis
+```typescript
+  cacheHandler: import.meta.dirname + "/cache-handler.mjs",
+  cacheMaxMemorySize: 0, // disable default in-memory caching
 ```
+
+Additionally, I enabled `cacheComponents: true,` to cache the rendered components.
+
+I followed this example and the same pages to validate the cache using `use cache`,
+`cacheTag`, `cacheLife`, `updateTag` and `revalidatePath`:
 
 More info at:
 
 ```http
-https://nextjs.org/docs/app/building-your-application/deploying#caching-and-isr
-```
-
-### :camera_flash: Image optimization
-
-I installed `sharp` using `npm install sharp`.
-
-More info at:
-
-```http
-https://nextjs.org/docs/app/building-your-application/deploying#image-optimization
+https://nextjs.org/docs/app/guides/self-hosting
 ```
 
 ### :whale2: Kubernetes
@@ -84,5 +79,4 @@ Run in Kubernetes:
 6. Execute `kubectl apply -f k8s/services/redis.yaml`.
 7. Access `http://localhost:3000`.
 
-> [!NOTE]  
-> You can use this option to deploy your Docker image on your VPS.
+> [!NOTE] You can use this option to deploy your Docker image on your VPS.

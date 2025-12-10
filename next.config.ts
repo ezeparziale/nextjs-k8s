@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  cacheHandler:
-    process.env.NODE_ENV === "production" ? "./cache-handler.mjs" : undefined,
+import type { NextConfig } from "next"
+
+const nextConfig: NextConfig = {
+  cacheHandler: import.meta.dirname + "/cache-handler.mjs",
   cacheMaxMemorySize: 0, // disable default in-memory caching
   images: {
     remotePatterns: [{ hostname: "images.unsplash.com" }],
@@ -12,6 +12,7 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  cacheComponents: true,
 }
 
 export default nextConfig

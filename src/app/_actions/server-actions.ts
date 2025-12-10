@@ -1,9 +1,9 @@
 "use server"
 
-import { revalidatePath, revalidateTag } from "next/cache"
+import { revalidatePath, updateTag } from "next/cache"
 
 export async function revalidate() {
-  revalidateTag("time-data")
+  updateTag("time-data")
 }
 
 export async function revalidateData() {

@@ -2,78 +2,63 @@ import "server-only"
 
 import { Product } from "@/types/product"
 import { DateTimeInfo } from "@/types/time"
-import { unstable_cache as cache } from "next/cache"
+import { cacheLife, cacheTag } from "next/cache"
 
-export const getProductsWithLimit = cache(
-  async () => {
-    console.log("Fetching products...")
+export const getProductsWithLimit = async () => {
+  "use cache"
 
-    const limit = Math.floor(Math.random() * 20) + 1
+  cacheTag("products")
 
-    try {
-      const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`, {
-        next: {
-          tags: ["products"],
-        },
-        cache: "force-cache",
-      })
+  cacheLife("max")
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`)
-      }
+  console.log("Fetching products...")
 
-      const data: Product[] = await res.json()
-      console.log(`Successfully fetched ${data.length} products`)
-      return data
-    } catch (error) {
-      console.error("Error fetching products:", error)
-      return []
+  const limit = Math.floor(Math.random() * 20) + 1
+
+  try {
+    const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`)
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
     }
-  },
-  ["products"],
-  {
-    tags: ["products"],
-  },
-)
 
-export const getCurrentTimestampCET = cache(
-  async () => {
-    console.log("Fetching current CET timestamp...")
-
-    const res = await fetch("https://worldtimeapi.org/api/timezone/CET", {
-      next: {
-        tags: ["getCurrentTimestampCET"],
-      },
-      cache: "force-cache",
-    })
-
-    const data: DateTimeInfo = await res.json()
-    console.log("Successfully fetched CET timestamp:", data.datetime)
+    const data: Product[] = await res.json()
+    console.log(`Successfully fetched ${data.length} products`)
     return data
-  },
-  ["getCurrentTimestampCET"],
-  {
-    tags: ["getCurrentTimestampCET"],
-  },
-)
+  } catch (error) {
+    console.error("Error fetching products:", error)
+    return []
+  }
+}
 
-export const getCurrentTimestampGMT = cache(
-  async () => {
-    console.log("Fetching current GMT timestamp...")
+export const getCurrentTimestampCET = async () => {
+  "use cache"
 
-    const res = await fetch("https://worldtimeapi.org/api/timezone/GMT", {
-      next: {
-        tags: ["getCurrentTimestampGMT"],
-      },
-      cache: "force-cache",
-    })
+  cacheTag("getCurrentTimestampCET")
 
-    const data: DateTimeInfo = await res.json()
-    console.log("Successfully fetched GMT timestamp:", data.datetime)
-    return data
-  },
-  ["getCurrentTimestampGMT"],
-  {
-    tags: ["getCurrentTimestampGMT"],
-  },
-)
+  cacheLife("max")
+
+  console.log("Fetching current CET timestamp...")
+
+  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=CET")
+
+  const data: DateTimeInfo = await res.json()
+  console.log("Successfully fetched CET timestamp:", data.iso8601)
+  return data
+}
+
+export const getCurrentTimestampGMT = async () => {
+  "use cache"
+
+  cacheTag("getCurrentTimestampGMT")
+
+  cacheLife("max")
+
+  console.log("Fetching current GMT timestamp...")
+
+  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
+
+  const data: DateTimeInfo = await res.json()
+  console.log("Successfully fetched GMT timestamp:", data.iso8601)
+  return data
+}

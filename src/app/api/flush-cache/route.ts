@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server"
-import { createClient, RedisFlushModes } from "redis"
+import { createClient, REDIS_FLUSH_MODES } from "redis"
 
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-api-key")
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
     await client.connect()
 
-    await client.flushAll(RedisFlushModes.ASYNC)
+    await client.flushAll(REDIS_FLUSH_MODES.ASYNC)
 
     await client.quit()
 

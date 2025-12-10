@@ -5,10 +5,7 @@ import { useEffect, useState } from "react"
 
 type CacheStateWatcherProps = { time: number; revalidateAfter: number }
 
-export function CacheStateWatcher({
-  time,
-  revalidateAfter,
-}: CacheStateWatcherProps): JSX.Element {
+export function CacheStateWatcher({ time, revalidateAfter }: CacheStateWatcherProps) {
   const [cacheState, setCacheState] = useState("")
   const [countDown, setCountDown] = useState("")
 
