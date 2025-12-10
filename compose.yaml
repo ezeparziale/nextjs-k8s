@@ -1,11 +1,10 @@
 services:
-  redis:
-    image: redis/redis-stack:latest
-    container_name: redis
-    hostname: redis
+  cache:
+    image: valkey/valkey:latest
+    container_name: cache
+    hostname: cache
     ports:
       - 6379:6379
-      - 8001:8001
     networks:
       - nextjs_net
 
@@ -17,10 +16,10 @@ services:
     ports:
       - 3000:3000
     environment:
-      - REDIS_URL=redis://redis:6379
-      - REDIS_AVAILABLE=True
+      - CACHE_URL=redis://cache:6379
+      - CACHE_AVAILABLE=True
     depends_on:
-      - redis
+      - cache
     networks:
       - nextjs_net
 
