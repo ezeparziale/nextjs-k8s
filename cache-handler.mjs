@@ -10,7 +10,7 @@ export default class CacheHandler {
 
     // Initialize in-memory LRU cache if enabled
     // 50MB max size, based on length of values
-    if (process.env.USE_LOCAL_CACHE === 'true') {
+    if (process.env.CACHE_USE_LRU_FALLBACK === 'true') {
       this.localCache = new LRUCache({
         max: 50000000,
         length: (value, key) => {
