@@ -2,6 +2,8 @@
 
 Next.js web application with 2 pods sharing cache.
 
+> [!NOTE]
+> You can also check the other branches for **Next.js 14** (`main-14`), **Next.js 15** (`main-15`) or **Redis Strings** (`redis-strings`) as there are variants that may also be useful to you.
 ## :speech_balloon: About this repo
 
 ### :whale: Docker
