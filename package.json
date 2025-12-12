@@ -13,17 +13,17 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
-    "@radix-ui/react-slot": "1.2.4",
+    "@mrjasonroy/cache-components-cache-handler": "16.0.4",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
+    "ioredis": "5.8.2",
     "lucide-react": "0.556.0",
     "next": "16.0.8",
+    "radix-ui": "1.4.3",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "server-only": "0.0.1",
-    "tailwind-merge": "3.4.0",
-    "redis": "5.10.0",
-    "lru-cache": "10.2.0"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.1.17",
