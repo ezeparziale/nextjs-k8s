@@ -6,9 +6,7 @@ import { cacheLife, cacheTag } from "next/cache"
 
 export const getProductsWithLimit = async () => {
   "use cache"
-
   cacheTag("products")
-
   cacheLife("max")
 
   console.log("Fetching products...")
@@ -31,32 +29,18 @@ export const getProductsWithLimit = async () => {
   }
 }
 
-export const getCurrentTimestampCET = async () => {
-  "use cache"
-
-  cacheTag("getCurrentTimestampCET")
-
-  cacheLife("max")
-
-  console.log("Fetching current CET timestamp...")
-
-  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=CET")
-
-  const data: DateTimeInfo = await res.json()
-  console.log("Successfully fetched CET timestamp:", data.iso8601)
-  return data
-}
-
 export const getCurrentTimestampGMT = async () => {
   "use cache"
-
   cacheTag("getCurrentTimestampGMT")
-
   cacheLife("max")
 
   console.log("Fetching current GMT timestamp...")
 
   const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  }
 
   const data: DateTimeInfo = await res.json()
   console.log("Successfully fetched GMT timestamp:", data.iso8601)

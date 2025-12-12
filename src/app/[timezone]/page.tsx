@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 
 async function getTime(timezone: string) {
   "use cache"
-  cacheTag("time-data")
+  cacheTag("time-data", `time-data:${timezone}`)
   cacheLife({ stale: REVALIDATE_SECONDS })
 
   console.log("Fetching time data...")
@@ -43,30 +43,28 @@ export default async function Page({
   const data = await getTime(timezone)
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-col items-center justify-center h-screen space-y-6">
-          <header>
-            {timeZones.map((timeZone) => (
-              <Button key={timeZone} className="mx-1" asChild>
-                <Link href={`/${timeZone}`}>{timeZone.toUpperCase()} Time</Link>
-              </Button>
-            ))}
-          </header>
-          <main className="p-6 border rounded-md flex flex-col items-center">
-            <div className="">
-              {data.timezone} Time {data.iso8601}
-            </div>
-            <Suspense fallback={null}>
-              <CacheStateWatcher
-                revalidateAfter={REVALIDATE_SECONDS * 1000}
-                time={data.timestamp * 1000}
-              />
-            </Suspense>
-            <RevalidateFrom />
-          </main>
-        </div>
-      </Suspense>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex flex-col items-center justify-center h-screen space-y-6">
+        <header>
+          {timeZones.map((timeZone) => (
+            <Button key={timeZone} className="mx-1" asChild>
+              <Link href={`/${timeZone}`}>{timeZone.toUpperCase()} Time</Link>
+            </Button>
+          ))}
+        </header>
+        <main className="p-6 border rounded-md flex flex-col items-center">
+          <div className="">
+            {data.timezone} Time {data.iso8601}
+          </div>
+          <Suspense fallback={null}>
+            <CacheStateWatcher
+              revalidateAfter={REVALIDATE_SECONDS * 1000}
+              time={data.timestamp * 1000}
+            />
+          </Suspense>
+          <RevalidateFrom />
+        </main>
+      </div>
+    </Suspense>
   )
 }

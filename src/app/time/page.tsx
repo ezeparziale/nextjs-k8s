@@ -1,5 +1,3 @@
-import Link from "next/link"
-import ButtonRevalidate from "./_components/button-revalidate"
 import {
   Table,
   TableBody,
@@ -8,21 +6,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { getCurrentTimestampCET } from "@/lib/data"
+import { getCurrentTimestampGMT } from "@/lib/data"
+import {
+  ButtonRevalidateAll,
+  ButtonRevalidatePage,
+  ButtonUpdateTag,
+} from "./button-revalidate"
 
-export default async function DataPage() {
-  const data = await getCurrentTimestampCET()
+export default async function TimePage() {
+  const data = await getCurrentTimestampGMT()
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <Link href={"/data"}>Data</Link>
       <div className="flex justify-between items-center">
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Get current timestamp
         </h2>
-        <ButtonRevalidate />
+        <ButtonRevalidatePage />
+        <ButtonUpdateTag />
+        <ButtonRevalidateAll />
       </div>
-
       <Table>
         <TableHeader>
           <TableRow>
