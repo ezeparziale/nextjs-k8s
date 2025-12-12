@@ -1,7 +1,11 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  cacheHandler: import.meta.dirname + "/cache-handler.mjs",
+  cacheComponents: true,
+  cacheHandlers: {
+    default: require.resolve("./cache-handler.mjs"),
+    remote: require.resolve("./cache-handler.mjs"),
+  },
   cacheMaxMemorySize: 0, // disable default in-memory caching
   images: {
     remotePatterns: [{ hostname: "images.unsplash.com" }],
@@ -12,7 +16,6 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
-  cacheComponents: true,
 }
 
 export default nextConfig
