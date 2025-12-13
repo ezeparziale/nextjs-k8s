@@ -4,7 +4,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Suspense } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
-import "./globals.css"
+import "@/styles/globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -34,7 +34,6 @@ export default async function RootLayout({
         <SidebarProvider>
           <AppSidebar />
           <main>
-            <SidebarTrigger />
             <Suspense fallback={<Skeleton />}>
               <div className="flex flex-1 flex-col p-5">{children}</div>
             </Suspense>
