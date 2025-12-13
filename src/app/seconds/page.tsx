@@ -8,8 +8,28 @@ import {
 } from "@/components/ui/table"
 import { getCurrentTimestampUTCSeconds } from "@/lib/data"
 import { ClockIcon } from "lucide-react"
+import { Suspense } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 
-export default async function SecondsPage() {
+async function TimestampHero() {
+  const data = await getCurrentTimestampUTCSeconds()
+
+  return (
+    <div className="rounded-lg border bg-linear-to-br from-primary/5 to-primary/10 p-6">
+      <div className="space-y-2 text-center">
+        <p className="text-sm font-medium text-muted-foreground">
+          Current Unix Timestamp
+        </p>
+        <p className="font-mono text-5xl font-bold tracking-tight">{data.timestamp}</p>
+        <p className="text-sm text-muted-foreground">
+          {data.date} at {data.time} UTC
+        </p>
+      </div>
+    </div>
+  )
+}
+
+async function DetailedTable() {
   const data = await getCurrentTimestampUTCSeconds()
 
   const timeFields = [
@@ -22,6 +42,95 @@ export default async function SecondsPage() {
     { label: "ISO 8601", value: data.iso8601 },
   ]
 
+  return (
+    <div className="rounded-lg border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {timeFields.map((field) => (
+              <TableHead key={field.label}>{field.label}</TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            {timeFields.map((field) => (
+              <TableCell
+                key={field.label}
+                className={field.icon ? "font-mono font-medium" : ""}
+              >
+                {field.value}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  )
+}
+
+async function InfoCards() {
+  const data = await getCurrentTimestampUTCSeconds()
+
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="rounded-lg border bg-card p-4">
+        <h3 className="mb-2 text-sm font-medium text-muted-foreground">Format</h3>
+        <p className="font-mono text-sm">{data.iso8601}</p>
+      </div>
+
+      <div className="rounded-lg border bg-card p-4">
+        <h3 className="mb-2 text-sm font-medium text-muted-foreground">Timezone</h3>
+        <p className="text-sm">
+          {data.timezone} ({data.abbr})
+        </p>
+      </div>
+
+      <div className="rounded-lg border bg-card p-4">
+        <h3 className="mb-2 text-sm font-medium text-muted-foreground">UTC Offset</h3>
+        <p className="font-mono text-sm">{data.offset}</p>
+      </div>
+    </div>
+  )
+}
+
+function HeroSkeleton() {
+  return (
+    <div className="rounded-lg border bg-linear-to-br from-primary/5 to-primary/10 p-6">
+      <div className="space-y-2 text-center">
+        <Skeleton className="mx-auto h-4 w-40" />
+        <Skeleton className="mx-auto h-14 w-64" />
+        <Skeleton className="mx-auto h-4 w-48" />
+      </div>
+    </div>
+  )
+}
+
+function TableSkeleton() {
+  return (
+    <div className="rounded-lg border p-4">
+      <div className="space-y-3">
+        <Skeleton className="h-8 w-full" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+    </div>
+  )
+}
+
+function CardsSkeleton() {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="rounded-lg border bg-card p-4">
+          <Skeleton className="mb-2 h-4 w-20" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default function SecondsPage() {
   return (
     <div className="container mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       <header className="space-y-2">
@@ -38,65 +147,20 @@ export default async function SecondsPage() {
         </div>
       </header>
 
-      <div className="rounded-lg border bg-linear-to-br from-primary/5 to-primary/10 p-6">
-        <div className="space-y-2 text-center">
-          <p className="text-sm font-medium text-muted-foreground">
-            Current Unix Timestamp
-          </p>
-          <p className="font-mono text-5xl font-bold tracking-tight">
-            {data.timestamp}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {data.date} at {data.time} UTC
-          </p>
-        </div>
-      </div>
+      <Suspense fallback={<HeroSkeleton />}>
+        <TimestampHero />
+      </Suspense>
 
       <div className="space-y-3">
         <h2 className="text-lg font-semibold">Detailed Information</h2>
-        <div className="rounded-lg border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {timeFields.map((field) => (
-                  <TableHead key={field.label}>{field.label}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                {timeFields.map((field) => (
-                  <TableCell
-                    key={field.label}
-                    className={field.icon ? "font-mono font-medium" : ""}
-                  >
-                    {field.value}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <Suspense fallback={<TableSkeleton />}>
+          <DetailedTable />
+        </Suspense>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-lg border bg-card p-4">
-          <h3 className="mb-2 text-sm font-medium text-muted-foreground">Format</h3>
-          <p className="font-mono text-sm">{data.iso8601}</p>
-        </div>
-
-        <div className="rounded-lg border bg-card p-4">
-          <h3 className="mb-2 text-sm font-medium text-muted-foreground">Timezone</h3>
-          <p className="text-sm">
-            {data.timezone} ({data.abbr})
-          </p>
-        </div>
-
-        <div className="rounded-lg border bg-card p-4">
-          <h3 className="mb-2 text-sm font-medium text-muted-foreground">UTC Offset</h3>
-          <p className="font-mono text-sm">{data.offset}</p>
-        </div>
-      </div>
+      <Suspense fallback={<CardsSkeleton />}>
+        <InfoCards />
+      </Suspense>
 
       <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950/30">
         <div className="flex gap-3">
