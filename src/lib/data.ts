@@ -6,12 +6,10 @@ import { cacheLife, cacheTag } from "next/cache"
 
 export const getProductsWithLimit = async () => {
   "use cache"
-
   cacheTag("products")
-
   cacheLife("max")
 
-  console.log("Fetching products...")
+  console.log("getProductsWithLimit - Fetching products...")
 
   const limit = Math.floor(Math.random() * 20) + 1
 
@@ -31,34 +29,74 @@ export const getProductsWithLimit = async () => {
   }
 }
 
-export const getCurrentTimestampCET = async () => {
+export const getCurrentTimestampUTC = async () => {
   "use cache"
-
-  cacheTag("getCurrentTimestampCET")
-
+  cacheTag("getCurrentTimestampUTC")
   cacheLife("max")
 
-  console.log("Fetching current CET timestamp...")
-
-  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=CET")
-
-  const data: DateTimeInfo = await res.json()
-  console.log("Successfully fetched CET timestamp:", data.iso8601)
-  return data
-}
-
-export const getCurrentTimestampGMT = async () => {
-  "use cache"
-
-  cacheTag("getCurrentTimestampGMT")
-
-  cacheLife("max")
-
-  console.log("Fetching current GMT timestamp...")
+  console.log("getCurrentTimestampUTC - Fetching current UTC timestamp...")
 
   const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
 
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  }
+
   const data: DateTimeInfo = await res.json()
-  console.log("Successfully fetched GMT timestamp:", data.iso8601)
+  console.log("Successfully fetched UTC timestamp:", data.iso8601)
+  return data
+}
+
+export const getCurrentTimestampUTCSeconds = async () => {
+  "use cache"
+  cacheTag("getCurrentTimestampUTCSeconds")
+  cacheLife("seconds")
+
+  console.log("getCurrentTimestampUTCSeconds - Fetching current UTC timestamp...")
+
+  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  }
+
+  const data: DateTimeInfo = await res.json()
+  console.log("Successfully fetched UTC timestamp:", data.iso8601)
+  return data
+}
+
+export const getCurrentTimestampUTCMinutes = async () => {
+  "use cache"
+  cacheTag("getCurrentTimestampUTCMinutes")
+  cacheLife("minutes")
+
+  console.log("getCurrentTimestampUTCMinutes - Fetching current UTC timestamp...")
+
+  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  }
+
+  const data: DateTimeInfo = await res.json()
+  console.log("Successfully fetched UTC timestamp:", data.iso8601)
+  return data
+}
+
+export const getCurrentTimestampUTCHours = async () => {
+  "use cache"
+  cacheTag("getCurrentTimestampUTCHours")
+  cacheLife("hours")
+
+  console.log("getCurrentTimestampUTCHours - Fetching current UTC timestamp...")
+
+  const res = await fetch("https://gettimeapi.dev/v1/time?timezone=UTC")
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  }
+
+  const data: DateTimeInfo = await res.json()
+  console.log("Successfully fetched UTC timestamp:", data.iso8601)
   return data
 }
