@@ -2,8 +2,14 @@
 
 import { revalidatePath, updateTag } from "next/cache"
 
-export async function revalidate() {
-  updateTag("time-data")
+export async function revalidate(formData: FormData) {
+  const timezone = formData.get("timezone") as string
+
+  if (!timezone) {
+    throw new Error("Timezone is required")
+  }
+
+  updateTag(`time-data:${timezone}`)
 }
 
 export async function revalidatePageTime() {
@@ -22,6 +28,6 @@ export async function revalidateProducts() {
   updateTag("products")
 }
 
-export async function revalidateTimeGMT() {
-  updateTag("getCurrentTimestampGMT")
+export async function revalidateTimeUTC() {
+  updateTag("getCurrentTimestampUTC")
 }

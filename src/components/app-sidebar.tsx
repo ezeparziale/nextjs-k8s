@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 // Menu items.
 const items = [
@@ -27,8 +28,8 @@ const items = [
     icon: Clock3Icon,
   },
   {
-    title: "GMT",
-    url: "/GMT",
+    title: "UTC",
+    url: "/UTC",
     icon: Clock12Icon,
   },
   {
@@ -39,6 +40,11 @@ const items = [
   {
     title: "Time",
     url: "/time",
+    icon: TimerIcon,
+  },
+  {
+    title: "Seconds",
+    url: "/seconds",
     icon: TimerIcon,
   },
 ]
@@ -60,10 +66,10 @@ export function AppSidebar() {
                     isActive={pathname === item.url}
                     tooltip={item.title}
                   >
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

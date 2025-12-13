@@ -3,7 +3,7 @@
 import {
   revalidateAll,
   revalidatePageTime,
-  revalidateTimeGMT,
+  revalidateTimeUTC,
 } from "@/app/_actions/server-actions"
 import { Button } from "@/components/ui/button"
 
@@ -17,7 +17,7 @@ export function ButtonRevalidatePage() {
 
 export function ButtonUpdateTag() {
   async function handleClick() {
-    await revalidateTimeGMT()
+    await revalidateTimeUTC()
   }
 
   return <Button onClick={handleClick}>Revalidate tag</Button>

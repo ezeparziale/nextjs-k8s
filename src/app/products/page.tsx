@@ -17,31 +17,59 @@ export default async function ProductsPage() {
   const data = await getProductsWithLimit()
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-6 lg:px-8">
-      <div className="flex justify-between items-center gap-3 mb-4">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-          Get products with limit param
-        </h2>
-        <div className="flex gap-3 shrink-0">
+    <div className="container mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold tracking-tight">Products</h1>
+          <p className="text-sm text-muted-foreground">
+            Showing {data.length} product{data.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
           <ButtonRevalidatePageProducts />
           <ButtonRevalidateTagProducts />
         </div>
-      </div>
-      <Table>
-        <TableCaption>A list of products</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Products</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell className="font-medium">{item.title}</TableCell>
+      </header>
+
+      <div className="rounded-lg border">
+        <Table>
+          <TableCaption className="py-4">
+            {data.length > 0
+              ? "Complete list of available products"
+              : "No products available"}
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-16">#</TableHead>
+              <TableHead>Product Name</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {data.length > 0 ? (
+              data.map((item, index) => (
+                <TableRow key={item.id}>
+                  <TableCell className="text-muted-foreground">{index + 1}</TableCell>
+                  <TableCell className="font-medium">{item.title}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className="h-24 text-center">
+                  No products found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="rounded-lg border bg-muted/50 p-4">
+        <p className="text-sm text-muted-foreground">
+          <strong>Cache Strategy:</strong> This page uses limit-based caching to
+          demonstrate partial revalidation strategies.
+        </p>
+      </div>
     </div>
   )
 }
