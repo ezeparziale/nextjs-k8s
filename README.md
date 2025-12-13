@@ -2,8 +2,10 @@
 
 Next.js web application with 2 pods sharing cache.
 
-> [!NOTE]
-> You can also check the other branches for **Next.js 14** (`main-14`), **Next.js 15** (`main-15`) or **Redis Strings** (`redis-strings`) as there are variants that may also be useful to you.
+> [!NOTE] You can also check the other branches for **Next.js 14** (`main-14`),
+> **Next.js 15** (`main-15`) or **Redis Strings** (`redis-strings`) as there are
+> variants that may also be useful to you.
+
 ## :speech_balloon: About this repo
 
 ### :whale: Docker
@@ -26,29 +28,48 @@ https://nextjs.org/docs/app/getting-started/deploying#docker
 
 I use `ValKey` to cache values and ensure consistency across all pods.
 
+I installed custom handler using
+`npm install @mrjasonroy/cache-components-cache-handler`:
+
 More info at:
 
 ```http
-https://nextjs.org/docs/app/getting-started/deploying#docker
+https://github.com/mrjasonroy/cache-components-cache-handler
 ```
 
-I added `cache-handler.mjs` and configured the `cacheHandler` property in
+I added `cache-handler.mjs` and configured the `cacheHandlers` property in
 `next.config.ts`.
 
 ```typescript
-  cacheHandler: import.meta.dirname + "/cache-handler.mjs",
+  cacheComponents: true,
+  cacheHandlers: {
+    default: require.resolve("./cache-handler.mjs"),
+    remote: require.resolve("./cache-handler.mjs"),
+  },
   cacheMaxMemorySize: 0, // disable default in-memory caching
 ```
 
-Additionally, I enabled `cacheComponents: true,` to cache the rendered components.
+Additionally, I enabled `cacheComponents: true` to cache the rendered components.
 
 I followed this example and the same pages to validate the cache using `use cache`,
-`cacheTag`, `cacheLife`, `updateTag` and `revalidatePath`:
+`cacheTag`, `cacheLife`, `updateTag` and `revalidatePath`.
+
+> [!WARNING] Only Next.js 16 + cacheComponents supports these features.
+
+> [!WARNING] CacheHandlers (with S) is different than CacheHandler (without S).
 
 More info at:
 
 ```http
 https://nextjs.org/docs/app/guides/self-hosting
+```
+
+```http
+https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheHandlers
+```
+
+```http
+https://nextjs.org/docs/app/api-reference/config/next-config-js/incrementalCacheHandlerPath
 ```
 
 ### :whale2: Kubernetes
