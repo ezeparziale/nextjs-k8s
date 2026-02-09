@@ -1,11 +1,14 @@
 import { NextRequest } from "next/server"
 import Redis from "ioredis"
+import { getClientInfoTag } from "@/lib/getClientInfoTag"
 
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-api-key")
 
   if (token === process.env.X_API_KEY) {
-    const client = new Redis(process.env.REDIS_URL!)
+    const client = new Redis(process.env.REDIS_URL!, {
+      clientInfoTag: getClientInfoTag(),
+    })
 
     await client.connect()
 
