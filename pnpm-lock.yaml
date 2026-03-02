@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@mrjasonroy/cache-components-cache-handler':
-        specifier: 16.0.4
-        version: 16.0.4(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        specifier: 16.1.6
+        version: 16.1.6(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -386,11 +386,11 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@mrjasonroy/cache-components-cache-handler@16.0.4':
-    resolution: {integrity: sha512-EbrCBmryz2I6LGMFAfaLYN3gfhbWgZsKQkd4ozJSr32gW2nU6uGYovCOM6dX8A0AkE1eS0l6lkcIN/mkHWS0ww==}
+  '@mrjasonroy/cache-components-cache-handler@16.1.6':
+    resolution: {integrity: sha512-B+PafiwJ97pbWN9/7ExD+SDPkKA4S93VVALi+5AAD0l0ba6ACx68FDGm7nQThQFma8tEn8ij0nHOrwwZiFUh2g==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      next: ~16.0.0
+      next: ^16.0.0
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -3150,7 +3150,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@mrjasonroy/cache-components-cache-handler@16.0.4(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
+  '@mrjasonroy/cache-components-cache-handler@16.1.6(next@16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       next: 16.1.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     optionalDependencies:
