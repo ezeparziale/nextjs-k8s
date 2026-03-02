@@ -13,7 +13,7 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
-    "@mrjasonroy/cache-components-cache-handler": "16.0.4",
+    "@mrjasonroy/cache-components-cache-handler": "16.1.6",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "ioredis": "5.8.2",
