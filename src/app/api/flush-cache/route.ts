@@ -10,8 +10,6 @@ export async function GET(req: NextRequest) {
       clientInfoTag: getClientInfoTag(),
     })
 
-    await client.connect()
-
     await client.flushall()
 
     await client.quit()
