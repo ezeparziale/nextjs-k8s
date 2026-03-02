@@ -7,8 +7,6 @@ export async function GET(req: NextRequest) {
   if (token === process.env.X_API_KEY) {
     const client = new Redis(process.env.REDIS_URL!)
 
-    await client.connect()
-
     await client.flushall()
 
     await client.quit()
