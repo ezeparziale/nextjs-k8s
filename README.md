@@ -55,9 +55,11 @@ Additionally, I enabled `cacheComponents: true` to cache the rendered components
 I followed this example and the same pages to validate the cache using `use cache`,
 `cacheTag`, `cacheLife`, `updateTag` and `revalidatePath`.
 
-> [!WARNING] Only Next.js 16 + cacheComponents supports these features.
+> [!WARNING]
+> Only Next.js 16 + cacheComponents supports these features.
 
-> [!WARNING] CacheHandlers (with S) is different than CacheHandler (without S).
+> [!WARNING]
+> CacheHandlers (with S) is different than CacheHandler (without S).
 
 More info at:
 
