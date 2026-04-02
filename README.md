@@ -2,7 +2,8 @@
 
 Next.js web application with 2 pods sharing cache.
 
-> [!NOTE] You can also check the other branches for **Next.js 14** (`main-14`),
+> [!NOTE]
+> You can also check the other branches for **Next.js 14** (`main-14`),
 > **Next.js 15** (`main-15`) or **Redis Strings** (`redis-strings`) as there are
 > variants that may also be useful to you.
 
@@ -100,4 +101,5 @@ Run in Kubernetes:
 6. Execute `kubectl apply -f k8s/services/redis.yaml`.
 7. Access `http://localhost:3000`.
 
-> [!NOTE] You can use this option to deploy your Docker image on your VPS.
+> [!NOTE]
+> You can use this option to deploy your Docker image on your VPS.
