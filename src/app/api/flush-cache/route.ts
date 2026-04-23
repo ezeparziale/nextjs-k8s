@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 import Redis from "ioredis"
-import { getClientInfoTag } from "@/lib/getClientInfoTag"
+import { getClientInfoTag } from "@/lib/get-client-info-tag"
 
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-api-key")
