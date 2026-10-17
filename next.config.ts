@@ -1,6 +1,7 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  partialPrefetching: true,
   cacheComponents: true,
   cacheHandlers: {
     default: require.resolve("./cache-handler.mjs"),
